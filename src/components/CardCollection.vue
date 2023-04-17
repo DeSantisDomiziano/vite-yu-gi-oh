@@ -1,7 +1,19 @@
-
 <script>
+import { store } from '../store.js'
+import GenerateCard from './GenerateCard.vue'
     export default {
-        name: 'CardColletion'
+        components: {
+            GenerateCard
+        },
+        name: 'CardColletion',
+        data() {
+            return {
+                store
+            }
+        },
+        mounted() {
+            console.log(this.store);
+        }
     }
 </script>
 
@@ -12,6 +24,7 @@
                 Found xx cards
             </h2>
         </div>
+        <GenerateCard/>
     </div>
 </template>
 
