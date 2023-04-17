@@ -19,7 +19,7 @@ import GenerateCard from './GenerateCard.vue'
                 .then(resp => {
                     store.cards = resp.data.data
                     console.log(store.cards);
-
+                    store.loading = true
                 })
             }
         },
@@ -31,7 +31,7 @@ import GenerateCard from './GenerateCard.vue'
 </script>
 
 <template>
-    <div class="row">
+    <div class="row" v-if="store.loading">
         <div class="col-12 my-3">
             <h2 class="py-2">
                 Found xx cards
@@ -42,6 +42,9 @@ import GenerateCard from './GenerateCard.vue'
         :src="card.card_images[0].image_url"
         :txt="card.name"
         :type="card.archetype"/>
+    </div>
+    <div class="row" v-else>
+        <div class="col"><h2>Loading.. 👀</h2></div>
     </div>
 </template>
 
