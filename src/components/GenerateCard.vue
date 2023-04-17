@@ -1,16 +1,22 @@
 <script>
     export default {
-        name: 'GenerateCard'
+        name: 'GenerateCard',
+        props: {
+            src: String,
+            txt: String,
+            type: String,
+        }
     }
 </script>
 
 <template>
 
-<div class="col-3 p-1">
+<div class="col-2 ">
     <div class="card">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWIuc2nSWFTKVvLuW0-a_X9P_KHoJPCx0DtA&usqp=CAU" alt="">
+        <img :src="src" :alt="txt">
         <div class="card-body text-center">
-            <p class="text-uppercase fw-semibold">yugiohhhh</p>
+            <p class="text-uppercase fw-semibold">{{txt}}</p>
+            <span>{{ type }}</span>
         </div>
     </div>
 </div>
