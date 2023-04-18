@@ -28,6 +28,10 @@ import FilterCard from './FilterCard.vue'
             })
             store.archetypes = [...store.archetypes];
             console.log(store.archetypes);
+            },
+
+            clickChanged() {
+
             }
             
         },
@@ -42,7 +46,7 @@ import FilterCard from './FilterCard.vue'
 <template>
 
     <div v-if="store.archetypes.length > 0">
-        <FilterCard
+        <FilterCard @ArchChanged="clickChanged"
         :archetypes="[...store.archetypes]"
     />
     </div>
