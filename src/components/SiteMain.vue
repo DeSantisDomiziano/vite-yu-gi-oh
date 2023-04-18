@@ -16,7 +16,7 @@ import CardColletion from './CardCollection.vue'
 <template>
     <main>
         <div class="container py-5">
-            <FilterCard/>
+
             <CardColletion/>
         </div>
 

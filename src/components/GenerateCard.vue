@@ -11,7 +11,7 @@
 
 <template>
 
-<div class="col-2">
+<div class="col">
     <div class="card h-100">
         <img class=" card-img-top" :src="src" :alt="txt">
         <div class="card-body text-center">

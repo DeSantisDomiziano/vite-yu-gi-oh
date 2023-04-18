@@ -1,9 +1,11 @@
 <script>
 import { store } from '../store.js'
 import GenerateCard from './GenerateCard.vue'
+import FilterCard from './FilterCard.vue'
     export default {
         components: {
-            GenerateCard
+            GenerateCard,
+            FilterCard
         },
         name: 'CardColletion',
         data() {
@@ -13,20 +15,25 @@ import GenerateCard from './GenerateCard.vue'
         },
         methods: {
             archetypeArray() {
-                this.store.cards.map((arch, i) => {
+                store.cards.map((arch) => {
                 
-                if(!this.store.archetype.includes(arch.archetype)) {
-                    this.store.archetype.push(arch.archetype)
+                if(!store.archetypes.includes(arch.archetype)) {
+
+                    if(arch.archetype != undefined){
+
+                        store.archetypes.push(arch.archetype)
+                    }
                 }
 
             })
-            console.log(this.store.archetype);
+            store.archetypes = [...store.archetypes];
+            console.log(store.archetypes);
             }
             
         },
         mounted() {
-            this.store.yugiGeneratore()
-            this.archetypeArray()
+            store.yugiGeneratore()
+            setTimeout(this.archetypeArray, 1000)
             
         }
     }
@@ -34,11 +41,18 @@ import GenerateCard from './GenerateCard.vue'
 
 <template>
 
+    <div v-if="store.archetypes.length > 0">
+        <FilterCard
+        :archetypes="[...store.archetypes]"
+    />
+    </div>
+    
+
     <h2 class="py-3">
-        Found  cards
+        Found {{ store.cards.length }} cards
     </h2>
 
-    <div class="row g-4" v-if="store.loading">
+    <div class="row row-cols-5 g-4" v-if="store.loading">
         
         <GenerateCard 
         v-for="card in store.cards"
