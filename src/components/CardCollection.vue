@@ -25,18 +25,18 @@ import GenerateCard from './GenerateCard.vue'
         },
         mounted() {
             this.yugiGeneratore()
-            //console.log(this.store);
         }
     }
 </script>
 
 <template>
-    <div class="row" v-if="store.loading">
-        <div class="col-12 my-3">
-            <h2 class="py-2">
-                Found xx cards
-            </h2>
-        </div>
+
+    <h2 class="py-3">
+        Found {{store.cards.length}} cards
+    </h2>
+
+    <div class="row g-4" v-if="store.loading">
+        
         <GenerateCard 
         v-for="card in store.cards"
         :src="card.card_images[0].image_url"
@@ -49,7 +49,7 @@ import GenerateCard from './GenerateCard.vue'
 </template>
 
 <style lang="scss" scoped>
-.col-12 {
+h2 {
     background-color: #313131;
     color: #ffffff
 }
