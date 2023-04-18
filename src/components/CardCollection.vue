@@ -1,6 +1,5 @@
 <script>
 import { store } from '../store.js'
-import axios from "axios"
 import GenerateCard from './GenerateCard.vue'
     export default {
         components: {
@@ -12,19 +11,23 @@ import GenerateCard from './GenerateCard.vue'
                 store
             }
         },
-        methods:{
-            yugiGeneratore(){
-                axios
-                .get(store.url)
-                .then(resp => {
-                    store.cards = resp.data.data
-                    console.log(store.cards);
-                    store.loading = true
-                })
+        methods: {
+            archetypeArray() {
+                this.store.cards.map((arch, i) => {
+                
+                if(!this.store.archetype.includes(arch.archetype)) {
+                    this.store.archetype.push(arch.archetype)
+                }
+
+            })
+            console.log(this.store.archetype);
             }
+            
         },
         mounted() {
-            this.yugiGeneratore()
+            this.store.yugiGeneratore()
+            this.archetypeArray()
+            
         }
     }
 </script>
@@ -32,7 +35,7 @@ import GenerateCard from './GenerateCard.vue'
 <template>
 
     <h2 class="py-3">
-        Found {{store.cards.length}} cards
+        Found  cards
     </h2>
 
     <div class="row g-4" v-if="store.loading">
@@ -43,9 +46,9 @@ import GenerateCard from './GenerateCard.vue'
         :txt="card.name"
         :type="card.archetype"/>
     </div>
-    <div class="row" v-else>
+     <div class="row" v-else>
         <div class="col"><h2>Loading.. 👀</h2></div>
-    </div>
+    </div> 
 </template>
 
 <style lang="scss" scoped>
