@@ -13,43 +13,27 @@ import FilterCard from './FilterCard.vue'
                 store
             }
         },
-        methods: {
-            archetypeArray() {
-                store.cards.map((arch) => {
-                
-                if(!store.archetypes.includes(arch.archetype)) {
-
-                    if(arch.archetype != undefined){
-
-                        store.archetypes.push(arch.archetype)
-                    }
+        methods: {       
+            filterArchetype() {
+                let newUrl;
+                if(store.archetype === '') {
+                    newUrl = store.api_url
+                } else {
+                    newUrl = `${store.api_url}&archetype=${store.archetype}`
                 }
-
-            })
-            store.archetypes = [...store.archetypes];
-            console.log(store.archetypes);
-            },
-
-            clickChanged() {
-
+                store.yugiGeneratore(newUrl)
             }
-            
         },
         mounted() {
-            store.yugiGeneratore()
-            setTimeout(this.archetypeArray, 1000)
-            
+            store.yugiGeneratore(store.api_url)     
         }
     }
 </script>
 
 <template>
 
-    <div v-if="store.archetypes.length > 0">
-        <FilterCard @ArchChanged="clickChanged"
-        :archetypes="[...store.archetypes]"
-    />
-    </div>
+    <FilterCard
+    @filter="filterArchetype()"/>
     
 
     <h2 class="py-3">

@@ -1,25 +1,29 @@
 <script>
-    export default {
-        emits: ['ArchChanged'],
-        props: {
-            archetypes: Array,
-        },
-        name: 'FilterCard',
-        mounted(){
-            console.log('archetipi')
-            console.log(this.archetypes)
-           
+import {store} from '../store'
+import axios from 'axios'
+export default {
+    name: 'FilterCard',
+    emits: ['filter'],
+    data() {
+        return {
+            store
         }
+    },
+    mounted() {
+        axios
+        .get('https://db.ygoprodeck.com/api/v7/archetypes.php')
+        .then(resp => {
+            store.archetypes = resp.data
+        })
     }
+}
 </script>
 
 <template>
     <div class="filter py-4 text-center">
-        <select name="" id="">
-            <option value="">Archetype</option>
-            <option :value="arch" @click="$emit('ArchChanged')" v-for="arch in archetypes">
-                {{ arch }}
-            </option>
+        <select v-model="store.archetype" @change="$emit('filter')">
+            <option value="" selected>Select All</option>
+            <option :value="archetype.archetype_name" v-for="archetype in store.archetypes">{{archetype.archetype_name}}</option>
         </select>
     </div>
 </template>
